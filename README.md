@@ -1,71 +1,203 @@
-# json-to-dart-3 README
+# JSON to Dart Model Generator
 
-This is the README for your extension "json-to-dart-3". After writing up a brief description, we recommend including the following sections.
+Quickly convert JSON to Dart model classes with `fromJson` and `toJson` methods for Flutter projects.
 
-## Features
+## ✨ Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+- 🚀 **Quick Conversion**: Convert JSON to Dart classes in seconds
+- 🏗️ **Complete Model Generation**: Automatically generates:
+    - Nullable fields with proper types
+    - Constructor with named parameters
+    - `fromJson()` factory method
+    - `toJson()` method
+- 🔄 **Smart Type Detection**:
+    - Distinguishes between `int` and `double` from JSON decimal notation
+    - Safe number casting to prevent runtime errors
+    - Supports nested objects and arrays
+- 📦 **Array Support**: Handles both object and array JSON inputs
+- 🌐 **Multi-language**: English and Vietnamese interface
+- 📁 **Auto File Naming**: Converts class names to snake_case for file names
+- 🎯 **Workspace Integration**: Saves files directly to your project root
 
-For example if there is an image subfolder under your extension project workspace:
+## 📖 Usage
 
-\!\[feature X\]\(images/feature-x.png\)
+### Basic Usage
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+1. Open Command Palette (`Cmd+Shift+P` on macOS or `Ctrl+Shift+P` on Windows/Linux)
+2. Type `JSON to Dart Model` and select the command
+3. Enter your class name (e.g., `CartModule`)
+4. Paste your JSON
+5. File is automatically created and opened!
 
-## Requirements
+### Example
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+**Input JSON:**
 
-## Extension Settings
+```json
+{
+    "ErrorCode": 0,
+    "ErrorDescription": "Success",
+    "Data": {
+        "id": 1,
+        "items": [
+            {
+                "id": 787,
+                "productName": "Product A",
+                "price": 44000.0,
+                "quantity": 1
+            }
+        ],
+        "totalAmount": 44000.0
+    }
+}
+```
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+**Output Dart Class:**
 
-For example:
+```dart
+class CartModule {
+  int? errorCode;
+  String? errorDescription;
+  Data? data;
+
+  CartModule({this.errorCode, this.errorDescription, this.data});
+
+  CartModule.fromJson(Map<String, dynamic> json) {
+    errorCode = (json['ErrorCode'] as num?)?.toInt();
+    errorDescription = json['ErrorDescription'];
+    data = json['Data'] != null ? Data.fromJson(json['Data']) : null;
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['ErrorCode'] = errorCode;
+    data['ErrorDescription'] = errorDescription;
+    if (this.data != null) {
+      data['Data'] = this.data!.toJson();
+    }
+    return data;
+  }
+}
+
+class Data {
+  int? id;
+  List<Item>? items;
+  double? totalAmount;
+
+  Data({this.id, this.items, this.totalAmount});
+
+  Data.fromJson(Map<String, dynamic> json) {
+    id = (json['id'] as num?)?.toInt();
+    if (json['items'] != null) {
+      items = <Item>[];
+      json['items'].forEach((v) {
+        items!.add(Item.fromJson(v));
+      });
+    }
+    totalAmount = (json['totalAmount'] as num?)?.toDouble();
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    if (items != null) {
+      data['items'] = items!.map((v) => v.toJson()).toList();
+    }
+    data['totalAmount'] = totalAmount;
+    return data;
+  }
+}
+```
+
+### Array Input Support
+
+You can also input JSON arrays directly:
+
+```json
+[
+    {
+        "id": 1,
+        "name": "Product A"
+    }
+]
+```
+
+The extension will use the first element to generate the class structure.
+
+## ⚙️ Extension Settings
 
 This extension contributes the following settings:
 
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
+- `jsonToDart.language`: Choose interface language
+    - `en` - English (default)
+    - `vi` - Tiếng Việt
 
-## Known Issues
+### Changing Language
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+1. Open Settings (`Cmd+,` or `Ctrl+,`)
+2. Search for "JSON to Dart"
+3. Select your preferred language
 
-## Release Notes
+Or add to your `settings.json`:
 
-Users appreciate release notes as you update your extension.
+```json
+{
+    "jsonToDart.language": "vi"
+}
+```
 
-### 1.0.0
+## 🎯 Smart Features
 
-Initial release of ...
+### Type Detection
 
-### 1.0.1
+- Numbers with decimal points → `double`
+- Whole numbers → `int`
+- Safe casting with `as num?` to handle both types from JSON
 
-Fixed issue #.
+### Field Naming
 
-### 1.1.0
+- Automatically converts to camelCase: `ErrorCode` → `errorCode`
+- Handles snake_case: `product_name` → `productName`
 
-Added features X, Y, and Z.
+### File Naming
+
+- Converts PascalCase to snake_case: `CartModule` → `cart_module.dart`
+- Files are saved to workspace root
+
+### Nested Objects
+
+- Automatically creates separate classes for nested objects
+- Singularizes array item names: `items` → `Item`
+
+## 📋 Requirements
+
+- VS Code 1.106.1 or higher
+- A workspace/folder opened in VS Code
+
+## 🐛 Known Issues
+
+- Very large JSON inputs may require splitting into smaller chunks
+- Complex nested structures with circular references are not supported
+
+## 🔄 Release Notes
+
+### 0.0.1
+
+Initial release with features:
+
+- JSON to Dart model conversion
+- Nested objects and arrays support
+- Smart type detection (int vs double)
+- Multi-language support (EN/VI)
+- Auto file naming and saving
+- Safe number casting
 
 ---
 
-## Following extension guidelines
+## 📝 Tips
 
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
+- **Keyboard Shortcut**: Consider adding a custom keyboard shortcut for quick access
+- **Best Practice**: Always review generated code before using in production
+- **File Overwrite**: Extension will prompt before overwriting existing files
 
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
-
-## Working with Markdown
-
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
-
-## For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+**Enjoy coding! 🚀**
