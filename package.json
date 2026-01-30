@@ -1,13 +1,28 @@
 {
   "name": "json-to-dart-3",
-  "displayName": "Json To Dart 3",
-  "description": "",
+  "displayName": "JSON to Dart Model Generator",
+  "description": "Quickly convert JSON to Dart model classes with fromJson and toJson methods for Flutter projects",
   "version": "0.0.1",
+  "publisher": "PhucChiVas",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/PhucChiVas161/json-to-dart-3"
+  },
   "engines": {
     "vscode": "^1.106.1"
   },
   "categories": [
-    "Other"
+    "Programming Languages",
+    "Formatters"
+  ],
+  "keywords": [
+    "dart",
+    "flutter",
+    "json",
+    "model",
+    "generator",
+    "converter"
   ],
   "activationEvents": [],
   "main": "./out/extension.js",
