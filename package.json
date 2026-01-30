@@ -14,10 +14,28 @@
   "contributes": {
     "commands": [
       {
-        "command": "json-to-dart-3.helloWorld",
-        "title": "Hello World"
+        "command": "json-to-dart-3.convertJsonToDart",
+        "title": "JSON to Dart Model"
       }
-    ]
+    ],
+    "configuration": {
+      "title": "JSON to Dart",
+      "properties": {
+        "jsonToDart.language": {
+          "type": "string",
+          "default": "en",
+          "enum": [
+            "en",
+            "vi"
+          ],
+          "enumDescriptions": [
+            "English",
+            "Tiếng Việt"
+          ],
+          "description": "Extension language / Ngôn ngữ extension"
+        }
+      }
+    }
   },
   "scripts": {
     "vscode:prepublish": "yarn run compile",

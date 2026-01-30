@@ -1,0 +1,17 @@
+{
+    "classNamePrompt": "Nhập tên Class (ví dụ: DartModel)",
+    "classNamePlaceholder": "DartModel",
+    "classNameEmpty": "Tên class không được để trống",
+    "classNameInvalid": "Tên class phải bắt đầu bằng chữ hoa và chỉ chứa chữ cái, số",
+    "jsonPrompt": "Nhập JSON (có thể paste JSON lớn)",
+    "jsonPlaceholder": "{ \"key\": \"value\" }",
+    "jsonEmpty": "JSON không được để trống",
+    "jsonInvalid": "JSON không hợp lệ",
+    "emptyArray": "Array rỗng! Vui lòng cung cấp ít nhất 1 phần tử.",
+    "noWorkspace": "Vui lòng mở một thư mục dự án trước!",
+    "fileExists": "File {0} đã tồn tại. Bạn có muốn ghi đè?",
+    "overwrite": "Ghi đè",
+    "cancel": "Hủy",
+    "success": "Đã tạo file {0} trong thư mục dự án!",
+    "error": "Lỗi: {0}"
+}

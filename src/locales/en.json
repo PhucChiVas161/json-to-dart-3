@@ -1,0 +1,17 @@
+{
+    "classNamePrompt": "Enter Class Name (e.g., DartModel)",
+    "classNamePlaceholder": "DartModel",
+    "classNameEmpty": "Class name cannot be empty",
+    "classNameInvalid": "Class name must start with uppercase letter and contain only letters and numbers",
+    "jsonPrompt": "Enter JSON (you can paste large JSON)",
+    "jsonPlaceholder": "{ \"key\": \"value\" }",
+    "jsonEmpty": "JSON cannot be empty",
+    "jsonInvalid": "Invalid JSON",
+    "emptyArray": "Empty array! Please provide at least 1 element.",
+    "noWorkspace": "Please open a project folder first!",
+    "fileExists": "File {0} already exists. Do you want to overwrite?",
+    "overwrite": "Overwrite",
+    "cancel": "Cancel",
+    "success": "Created file {0} in project folder!",
+    "error": "Error: {0}"
+}
